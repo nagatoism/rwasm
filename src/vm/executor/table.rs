@@ -122,7 +122,6 @@ impl<'a, T: Send + Sync> RwasmExecutor<'a, T> {
             use crate::{
                 event::FatOpEvent, mem::MemoryLocalEvent, mem_index::TypedAddress, N_MAX_TABLE_SIZE,
             };
-            use fnv::FnvBuildHasher;
             use hashbrown::HashMap;
 
             let fat_op = self
@@ -140,7 +139,7 @@ impl<'a, T: Send + Sync> RwasmExecutor<'a, T> {
                     table_fill_event.s = val.into();
                     table_fill_event.d = i.into();
                     table_fill_event.n = n.into();
-                    let mut local_memory_access: HashMap<u32, MemoryLocalEvent, FnvBuildHasher> =
+                    let mut local_memory_access: HashMap<u32, MemoryLocalEvent> =
                         HashMap::default();
                     for idx in 0..table_fill_event.local_mem_access.len() {
                         local_memory_access.insert(
